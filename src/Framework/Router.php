@@ -8,9 +8,9 @@ class Router {
     private array $routes = [];
 
     private function normalizePath(string $path) : string {
-        $path = trim($path, '/');
+        $path = trim($path, "/");
         $path = "/{$path}/";
-        $path = preg_replace('#[/]{2,}#', '/', $path);
+        $path = preg_replace("#[/]{2,}#", "/", $path);
 
         return $path;
     }
@@ -19,9 +19,9 @@ class Router {
         $path = $this->normalizePath($path);
 
         $this->routes[] = [
-            'path' => $path,
-            'method' => strtoupper($method),
-            'controller' => $controller
+            "path" => $path,
+            "method" => strtoupper($method),
+            "controller" => $controller
         ];
     }
 
