@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 namespace Framework;
 
-class Router {
+class Router
+{
     private array $routes = [];
 
-    private function normalizePath(string $path) : string {
+    private function normalizePath(string $path): string
+    {
         $path = trim($path, "/");
         $path = "/{$path}/";
         $path = preg_replace("#[/]{2,}#", "/", $path);
 
         return $path;
     }
-    
-    public function add(string $method, string $path, array $controller) {        
+
+    public function add(string $method, string $path, array $controller)
+    {
         $path = $this->normalizePath($path);
 
         $this->routes[] = [
@@ -25,21 +28,22 @@ class Router {
         ];
     }
 
-    public function dispatch(string $path, string $method) {
+    public function dispatch(string $path, string $method)
+    {
         $path = $this->normalizePath($path);
         $method = strtoupper($method);
 
-        foreach($this->routes as $route) {
-            if(!preg_match("#^{$route['path']}$#", $path) || $route['method'] !== $method) {
+        foreach ($this->routes as $route) {
+            if (!preg_match("#^{$route['path']}$#", $path) || $route['method'] !== $method) {
                 echo 'Route not Found';
                 continue;
             }
-            [$class, $function] = $route['controller'];
-            
-            // echo $class . "<br>" . $function;
+            [$controllerClass, $controllerFunction] = $route['controller'];
 
-            $controllerInstance = new $class;
-            $controllerInstance->$function();
+            // echo $controllerClass . "<br>" . $controllerFunction;
+
+            $controllerInstance = new $controllerClass;
+            $controllerInstance->$controllerFunction();
         }
     }
 }
