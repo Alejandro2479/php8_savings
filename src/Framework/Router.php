@@ -34,7 +34,12 @@ class Router {
                 echo 'Route not Found';
                 continue;
             }
-            echo 'Route Found';
+            [$class, $function] = $route['controller'];
+            
+            // echo $class . "<br>" . $function;
+
+            $controllerInstance = new $class;
+            $controllerInstance->$function();
         }
     }
 }

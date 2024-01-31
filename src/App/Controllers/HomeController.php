@@ -6,6 +6,6 @@ namespace App\Controllers;
 
 class HomeController {
     public function home() {
-        echo "Home Page";
+        echo "Hello from the Home Page";
     }
 }
