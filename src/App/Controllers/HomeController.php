@@ -18,6 +18,6 @@ class HomeController
 
     public function home()
     {
-        echo "Hello from the Home Page";
+        $this->view->render("/home.php");
     }
 }
